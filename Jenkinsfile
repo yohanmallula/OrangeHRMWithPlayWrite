@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'Node18'
+    }
+
     stages {
 
         stage('Install Dependencies') {
@@ -19,16 +23,6 @@ pipeline {
             steps {
                 bat 'npx playwright test'
             }
-        }
-    }
-
-    post {
-        always {
-            publishHTML([
-                reportDir: 'playwright-report',
-                reportFiles: 'index.html',
-                reportName: 'Playwright Report'
-            ])
         }
     }
 }
